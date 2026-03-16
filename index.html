@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Gym Assistant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+button{
+padding:12px 20px;
+background:#ff3c00;
+border:none;
+color:white;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>AI Gym Assistant</h1>
+
+<p>Ask anything about membership or training</p>
+
+<input id="msg" placeholder="Ask something">
+<button onclick="send()">Send</button>
+
+<div id="chat"></div>
+
+<script>
+
+async function send(){
+
+let msg=document.getElementById("msg").value
+
+let res=await fetch("/api/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:msg})
+})
+
+let data=await res.json()
+
+document.getElementById("chat").innerHTML+=
+"<p>"+data.reply+"</p>"
+
+}
+
+</script>
+
+</body>
+</html>
